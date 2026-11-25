@@ -20,3 +20,18 @@ Entry for the [make.fun bounty "Confess Your Worst Moment"](https://make.fun/bou
 node main.ts
 cat /output/entry.txt
 ```
+
+## Validation
+
+Before writing anything, `main.ts` checks the confession against the
+bounty rules and aborts (exit code 1, naming every problem on stderr)
+instead of writing a bad entry:
+
+- the line is not empty and not only whitespace;
+- it is at most 200 characters (this one is 157);
+- it is exactly one line — no embedded newlines;
+- it contains no control characters.
+
+So a future edit that accidentally makes the confession too long or
+multi-line fails loudly at build time instead of shipping an entry the
+judge would reject.
